@@ -1,0 +1,64 @@
+logo = """  ________                            .__                   ________                           
+ /  _____/ __ __   ____   ______ _____|__| ____    ____    /  _____/_____    _____   ____   /\ 
+/   \  ___|  |  \_/ __ \ /  ___//  ___/  |/    \  / ___\  /   \  ___\__  \  /     \_/ __ \  \/ 
+\    \_\  \  |  /\  ___/ \___ \ \___ \|  |   |  \/ /_/  > \    \_\  \/ __ \|  Y Y  \  ___/  /\ 
+ \______  /____/  \___  >____  >____  >__|___|  /\___  /   \______  (____  /__|_|  /\___  > \/ 
+        \/            \/     \/     \/        \//_____/           \/     \/      \/     \/     """
+
+
+import random
+
+EasyLevel = 10
+HardLevel = 5
+
+
+def CheckAnswer(PlayerGuess, ComputerGuess, NumberGuesses):
+  """Checks ComputerGuess against PlayerGuess. Returns the Number of Guesses remaining."""
+  if PlayerGuess < ComputerGuess:
+    print("Too Low")
+    return NumberGuesses - 1
+  elif PlayerGuess > ComputerGuess:
+    print("Too High")
+    return NumberGuesses - 1
+  else:
+    print(f"That's correct, the answer is {ComputerGuess}")
+
+def DifFunc():
+  """Return the number of Rounds the Player can Make, based on his Answer."""
+  Difficult = input("Chose a difficult. Type 'easy' or 'hard': ").lower()
+  
+  if Difficult == "hard":
+    return HardLevel
+  elif Difficult == "easy":
+    return EasyLevel
+
+def Game():
+  "The Game"
+  print(logo)
+  #Player Interaction
+  print("I'm thinking of a number between 1 and 100.")
+  #Save a Answer in a variable
+  ComputerGuess = random.randint(1, 100)
+  #Call the function to set the Difficult
+  NumberGuesses = DifFunc()
+ 
+  
+  PlayerGuess = 0
+  
+  while PlayerGuess != ComputerGuess:
+    
+    #Print the number of guesses based on the answer from DifFunc()
+    print(f"You have {NumberGuesses} attempts to guess the number:")
+    #Save the guess from the player in a Variable
+    PlayerGuess = int(input("Guess a number: "))
+    #Call the function CheckAnswer
+    NumberGuesses = CheckAnswer(PlayerGuess, ComputerGuess, NumberGuesses)
+
+    if NumberGuesses == 0:
+      print("You've run out of Guesses, you Lose!")
+      return
+    elif PlayerGuess != ComputerGuess:
+      print("Guess again.")
+
+
+Game()
